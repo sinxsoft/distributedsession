@@ -12,14 +12,15 @@ public class Configuration {
 	public static final String SESSION_TIMEOUT = "sessionTimeout";
 	public static final String TIMEOUT = "timeout";
 	public static final String POOLSIZE = "poolSize";
-	public static final String CFG_NAME = ".cfg.properties";
+	public static final String CFG_NAME = "distributedSession.properties";
 	private static Configuration instance;
 	private Properties config;
 
 	protected Configuration() {
 		this.config = new Properties();
 
-		String basedir = System.getProperty("user.home");
+		//String basedir = System.getProperty("java.class.path");
+		String basedir = this.getClass().getResource("/").getPath();
 		File file = new File(basedir, CFG_NAME);
 		try {
 			boolean exist = file.exists();
@@ -28,7 +29,7 @@ public class Configuration {
 			}
 			this.config.load(new FileInputStream(file));
 			if (!exist) {
-				this.config.setProperty(SERVERS, "127.0.0.1");
+				this.config.setProperty(SERVERS, "localhost:2181,localhost:2182,localhost:2183");
 				this.config.setProperty(MAX_IDLE, "8");
 				this.config.setProperty(INIT_IDLE_CAPACITY, "4");
 				this.config.setProperty(SESSION_TIMEOUT, "5");
