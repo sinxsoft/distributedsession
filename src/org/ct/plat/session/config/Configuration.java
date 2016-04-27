@@ -20,7 +20,7 @@ public class Configuration {
 		this.config = new Properties();
 
 		String basedir = System.getProperty("user.home");
-		File file = new File(basedir, ".cfg.properties");
+		File file = new File(basedir, CFG_NAME);
 		try {
 			boolean exist = file.exists();
 			if (!exist) {
@@ -28,12 +28,12 @@ public class Configuration {
 			}
 			this.config.load(new FileInputStream(file));
 			if (!exist) {
-				this.config.setProperty("servers", "www.storevm.org");
-				this.config.setProperty("maxIdle", "8");
-				this.config.setProperty("initIdleCapacity", "4");
-				this.config.setProperty("sessionTimeout", "5");
-				this.config.setProperty("timeout", "5000");
-				this.config.setProperty("poolSize", "5000");
+				this.config.setProperty(SERVERS, "127.0.0.1");
+				this.config.setProperty(MAX_IDLE, "8");
+				this.config.setProperty(INIT_IDLE_CAPACITY, "4");
+				this.config.setProperty(SESSION_TIMEOUT, "5");
+				this.config.setProperty(TIMEOUT, "5000");
+				this.config.setProperty(POOLSIZE, "5000");
 				this.config.store(new FileOutputStream(file), "");
 			}
 		} catch (Exception ex) {
